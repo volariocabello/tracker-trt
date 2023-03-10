@@ -153,23 +153,22 @@ export default function Home() {
 					</Container>
 				</Container>
 				<Container>
-					<Container className="bg-white pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10">
+					<Container className="bg-white h-[350px] w-full pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10">
 						<Typography className="text-xl pt-5 pb-5">Logger</Typography>
-						<div className="pb-5" style={{ height: 350, width: "100%" }}>
-							<DataGrid
-								className="flex justify-center items-center"
-								rows={logs}
-								columns={columns}
-								pageSize={1}
-								rowsPerPageOptions={[1]}
-								onRowClick={(rows) => {
-									setSelectedRow(rows.id);
-								}}
-								initialState={{
-									pagination: { paginationModel: { pageSize: 5 } },
-								}}
-							/>
-						</div>
+
+						<DataGrid
+							className="flex justify-center items-center"
+							rows={logs}
+							columns={columns}
+							pageSize={1}
+							rowsPerPageOptions={[1]}
+							onRowClick={(rows) => {
+								setSelectedRow(rows.id);
+							}}
+							initialState={{
+								pagination: { paginationModel: { pageSize: 5 } },
+							}}
+						/>
 					</Container>
 					<Container className="flex justify-center">
 						<Container>
