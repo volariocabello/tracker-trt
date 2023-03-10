@@ -157,7 +157,7 @@ export default function Home() {
 					className="bg-white pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10"
 				>
 					<Typography className="text-xl pt-5 pb-5">Logger</Typography>
-					<Container className="pb-5" style={{ height: 400, width: "100%" }}>
+					<div className="pb-5" style={{ height: 350, width: "100%" }}>
 						<DataGrid
 							className="flex justify-center items-center"
 							rows={logs}
@@ -171,7 +171,7 @@ export default function Home() {
 								pagination: { paginationModel: { pageSize: 5 } },
 							}}
 						/>
-					</Container>
+					</div>
 					{showAddLogArea && (
 						<Container className="inputsWrapper flex justify-between flex-wrap">
 							<TextField
