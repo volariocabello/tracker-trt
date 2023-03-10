@@ -6,8 +6,18 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Link from "next/link";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "@/firebase";
 
-export default function ButtonAppBar() {
+export default function Navbar() {
+	const auth = getAuth(app);
+	const [user, loading] = useAuthState(auth);
+
+	const handleSignOut = async () => {
+		await signOut(auth);
+	};
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" className="bg-gray-600">
@@ -24,7 +34,16 @@ export default function ButtonAppBar() {
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 						yeahbuddy
 					</Typography>
-					<Button color="inherit">Login</Button>
+					{!user && (
+						<Link href="/login">
+							<Button color="inherit">Login</Button>
+						</Link>
+					)}
+					{user && (
+						<Button color="inherit" onClick={handleSignOut}>
+							Logout
+						</Button>
+					)}
 				</Toolbar>
 			</AppBar>
 		</Box>
