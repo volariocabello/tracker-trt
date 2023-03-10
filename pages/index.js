@@ -160,6 +160,7 @@ export default function Home() {
 						<Typography className="text-xl pt-5 pb-5">Logger</Typography>
 						<Box className="pb-5" style={{ height: 400, width: "100%" }}>
 							<DataGrid
+								className="w-full"
 								rows={logs}
 								columns={columns}
 								pageSize={5}
