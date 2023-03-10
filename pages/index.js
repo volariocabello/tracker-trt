@@ -5,6 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { runTransaction } from "firebase/firestore";
 import { DataGrid } from "@mui/x-data-grid";
+import { StyledEngineProvider } from "@mui/material/styles";
 import {
 	Typography,
 	Container,
@@ -121,7 +122,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<LocalizationProvider dateAdapter={AdapterDayjs}>
+		<StyledEngineProvider injectFirst>
 			<Box className="w-full">
 				<Container maxWidth="xl" className="flex flex-row pt-10">
 					<Container
@@ -205,13 +206,14 @@ export default function Home() {
 									type="text"
 									onChange={(e) => setArea(e.target.value)}
 								/>
-
-								<DatePicker
-									className="w-[170px]"
-									label="Select date"
-									value={value}
-									onChange={(newValue) => setValue(newValue)}
-								/>
+								<LocalizationProvider dateAdapter={AdapterDayjs}>
+									<DatePicker
+										className="w-[170px]"
+										label="Select date"
+										value={value}
+										onChange={(newValue) => setValue(newValue)}
+									/>
+								</LocalizationProvider>
 								<Container className="flex justify-center">
 									<IconButton aria-label="add-log" onClick={handleAddLog}>
 										<CheckOutlinedIcon fontSize="large" />
@@ -246,6 +248,6 @@ export default function Home() {
 					</Container>
 				</Container>
 			</Box>
-		</LocalizationProvider>
+		</StyledEngineProvider>
 	);
 }
