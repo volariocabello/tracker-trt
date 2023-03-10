@@ -175,8 +175,8 @@ export default function Dashboard() {
 	return (
 		<StyledEngineProvider injectFirst>
 			<Box className="w-full">
-				<Container maxWidth="xl" className="flex flex-row pt-10">
-					<Container
+				<Container className="flex flex-row pt-10">
+					{/* <Container
 						maxWidth="xs"
 						className="bg-white flex flex-col justify-center items-center shadow-md rounded-xl w-[250px] h-[200px]"
 					>
@@ -191,10 +191,10 @@ export default function Dashboard() {
 								);
 							})}
 						</Container>
-					</Container>
+						</Container> */}
 					<Container
 						maxWidth="lg"
-						className="bg-white pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10"
+						className="bg-white border pb-5 flex flex-col items-center justify-center shadow-md rounded-xl ml-10"
 					>
 						<Typography className="text-xl pt-5 pb-5">Logger</Typography>
 						<Box className="pb-5" style={{ height: 400, width: "100%" }}>
