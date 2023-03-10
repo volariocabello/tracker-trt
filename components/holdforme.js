@@ -8,7 +8,6 @@ import styles from "@/styles/Home.module.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { runTransaction } from "firebase/firestore";
-import { DataGrid } from "@mui/x-data-grid";
 import {
 	Typography,
 	Container,
@@ -37,17 +36,6 @@ import { db } from "@/firebase";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const columns = [
-	{ field: "id", headerName: "ID", width: 70 },
-	{ field: "compound", headerName: "Compound", width: 130 },
-	{ field: "ester", headerName: "Ester", width: 130 },
-	{ field: "dosageMg", headerName: "Dosage (mg)", width: 130 },
-	{ field: "dosageMl", headerName: "Dosage (ml)", width: 130 },
-	{ field: "brand", headerName: "Brand", width: 130 },
-	{ field: "area", headerName: "Area", width: 130 },
-	{ field: "date", headerName: "Date", width: 130 },
-];
-
 export default function Home() {
 	const [logs, setLogs] = useState([]);
 	const [vials, setVials] = useState([]);
@@ -59,15 +47,9 @@ export default function Home() {
 	const [area, setArea] = useState("");
 	const [value, setValue] = useState(null);
 	const [showAddLogArea, setShowAddLogArea] = useState(false);
-	const [selectedRow, setSelectedRow] = useState([]);
 
 	const handleShowLogArea = () => {
 		setShowAddLogArea(true);
-	};
-
-	const handleLogDelete = async () => {
-		await deleteDoc(doc(db, "logs", selectedRow));
-		setSelectedRow([]);
 	};
 
 	//add shot log
@@ -135,7 +117,7 @@ export default function Home() {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
-			<Container maxWidth="xl" className="flex flex-row pt-10">
+			<Container maxWidth="xl" className="flex flex-row pt-20">
 				<Container
 					maxWidth="xs"
 					className="bg-white flex flex-col justify-center items-center shadow-md rounded-xl w-[250px] h-[200px]"
@@ -154,24 +136,49 @@ export default function Home() {
 				</Container>
 				<Container
 					maxWidth="lg"
-					className="bg-white pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10"
+					className="bg-white pb-10 flex justify-center flex-col items-center shadow-md rounded-xl ml-10"
 				>
-					<Typography className="text-xl pt-5 pb-5">Logger</Typography>
-					<Container className="pb-5" style={{ height: 400, width: "100%" }}>
-						<DataGrid
-							className="flex justify-center items-center"
-							rows={logs}
-							columns={columns}
-							pageSize={1}
-							rowsPerPageOptions={[1]}
-							onRowClick={(rows) => {
-								setSelectedRow(rows.id);
-							}}
-							initialState={{
-								pagination: { paginationModel: { pageSize: 5 } },
-							}}
-						/>
+					<Typography className="text-xl pt-10">TRT Tracker Raw</Typography>
+
+					<Container className="logListHolder mb-10 mt-10">
+						<Paper elevation={0} className="flex text-center border-b">
+							<Container>
+								<Typography className="font-bold">Compound</Typography>
+							</Container>
+							<Container>
+								<Typography className="font-bold">Ester</Typography>
+							</Container>
+							<Container>
+								<Typography className="font-bold">Dosage (mg)</Typography>
+							</Container>
+							<Container>
+								<Typography className="font-bold">Dosage (ml)</Typography>
+							</Container>
+							<Container>
+								<Typography className="font-bold">Brand</Typography>
+							</Container>
+							<Container>
+								<Typography className="font-bold">Area</Typography>
+							</Container>
+							<Container>
+								<Typography className="font-bold">Area</Typography>
+							</Container>
+						</Paper>
+						{logs.map((log) => {
+							return (
+								<Paper elevation={0} className="flex text-center border-b p-1">
+									<Container className="">{log.compound}</Container>
+									<Container className="">{log.ester}</Container>
+									<Container className="">{log.dosageMg}</Container>
+									<Container className="">{log.dosageMl}</Container>
+									<Container className="">{log.brand}</Container>
+									<Container className="">{log.area}</Container>
+									<Container className="">{log.date}</Container>
+								</Paper>
+							);
+						})}
 					</Container>
+
 					{showAddLogArea && (
 						<Container className="inputsWrapper flex justify-between flex-wrap">
 							<TextField
@@ -237,24 +244,11 @@ export default function Home() {
 							</Container>
 						</Container>
 					)}
-					<Container className="flex justify-center">
-						{!showAddLogArea && (
-							<>
-								<Button
-									className="mr-5"
-									variant="outlined"
-									onClick={handleShowLogArea}
-								>
-									NEW LOG
-								</Button>
-								{selectedRow.length > 0 && (
-									<Button variant="outlined" onClick={handleLogDelete}>
-										DELETE LOG{" "}
-									</Button>
-								)}
-							</>
-						)}
-					</Container>
+					{!showAddLogArea && (
+						<Button variant="outlined" onClick={handleShowLogArea}>
+							NEW LOG
+						</Button>
+					)}
 				</Container>
 			</Container>
 		</LocalizationProvider>
