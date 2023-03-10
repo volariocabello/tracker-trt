@@ -135,128 +135,130 @@ export default function Home() {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
-			<Container maxWidth="xl" className="flex flex-row pt-10">
-				<Container
-					maxWidth="xs"
-					className="bg-white flex flex-col justify-center items-center shadow-md rounded-xl w-[250px] h-[200px]"
-				>
-					<Typography>Your active vial</Typography>
-					<Container className="flex flex-col items-center">
-						{vials.map((vial) => {
-							return (
-								<>
-									<p>{vial.name}</p>
-									<p>{vial.totalMg}</p>
-								</>
-							);
-						})}
+			<Box className="w-full">
+				<Container maxWidth="xl" className="flex flex-row pt-10">
+					<Container
+						maxWidth="xs"
+						className="bg-white flex flex-col justify-center items-center shadow-md rounded-xl w-[250px] h-[200px]"
+					>
+						<Typography>Your active vial</Typography>
+						<Container className="flex flex-col items-center">
+							{vials.map((vial) => {
+								return (
+									<>
+										<p>{vial.name}</p>
+										<p>{vial.totalMg}</p>
+									</>
+								);
+							})}
+						</Container>
 					</Container>
-				</Container>
-				<Container>
-					<Container className="bg-white h-[350px] w-full pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10">
+					<Container
+						maxWidth="lg"
+						className="bg-white pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10"
+					>
 						<Typography className="text-xl pt-5 pb-5">Logger</Typography>
+						<Box className="pb-5" style={{ height: 400, width: "100%" }}>
+							<DataGrid
+								rows={logs}
+								columns={columns}
+								pageSize={5}
+								rowsPerPageOptions={[5]}
+								autoHeight
+								onRowClick={(rows) => {
+									setSelectedRow(rows.id);
+								}}
+								initialState={{
+									pagination: { paginationModel: { pageSize: 5 } },
+								}}
+							/>
+						</Box>
+						{showAddLogArea && (
+							<Container className="inputsWrapper flex justify-between flex-wrap">
+								<TextField
+									className="w-[150px]"
+									label="Compound"
+									variant="outlined"
+									type="text"
+									onChange={(e) => setCompound(e.target.value)}
+								/>
+								<TextField
+									className="w-[150px]"
+									label="Ester"
+									variant="outlined"
+									type="text"
+									onChange={(e) => setEster(e.target.value)}
+								/>
 
-						<DataGrid
-							className="flex justify-center items-center"
-							rows={logs}
-							columns={columns}
-							pageSize={1}
-							rowsPerPageOptions={[1]}
-							onRowClick={(rows) => {
-								setSelectedRow(rows.id);
-							}}
-							initialState={{
-								pagination: { paginationModel: { pageSize: 5 } },
-							}}
-						/>
-					</Container>
-					<Container className="flex justify-center">
-						<Container>
-							{showAddLogArea && (
-								<Container className="inputsWrapper flex justify-between flex-wrap">
-									<TextField
-										className="w-[150px]"
-										label="Compound"
-										variant="outlined"
-										type="text"
-										onChange={(e) => setCompound(e.target.value)}
-									/>
-									<TextField
-										className="w-[150px]"
-										label="Ester"
-										variant="outlined"
-										type="text"
-										onChange={(e) => setEster(e.target.value)}
-									/>
+								<TextField
+									className="w-[120px]"
+									label="Dosage (mg)"
+									variant="outlined"
+									type="number"
+									onChange={(e) => setDosageMg(e.target.value)}
+								/>
+								<TextField
+									className="w-[120px]"
+									label="Dosage (ml)"
+									variant="outlined"
+									type="number"
+									onChange={(e) => setDosageMl(e.target.value)}
+								/>
+								<TextField
+									className="w-[150px]"
+									label="Brand"
+									variant="outlined"
+									type="text"
+									onChange={(e) => setBrand(e.target.value)}
+								/>
+								<TextField
+									className="w-[150px]"
+									label="Area"
+									variant="outlined"
+									type="text"
+									onChange={(e) => setArea(e.target.value)}
+								/>
 
-									<TextField
-										className="w-[120px]"
-										label="Dosage (mg)"
-										variant="outlined"
-										type="number"
-										onChange={(e) => setDosageMg(e.target.value)}
-									/>
-									<TextField
-										className="w-[120px]"
-										label="Dosage (ml)"
-										variant="outlined"
-										type="number"
-										onChange={(e) => setDosageMl(e.target.value)}
-									/>
-									<TextField
-										className="w-[150px]"
-										label="Brand"
-										variant="outlined"
-										type="text"
-										onChange={(e) => setBrand(e.target.value)}
-									/>
-									<TextField
-										className="w-[150px]"
-										label="Area"
-										variant="outlined"
-										type="text"
-										onChange={(e) => setArea(e.target.value)}
-									/>
-
-									<DatePicker
-										className="w-[170px]"
-										label="Select date"
-										value={value}
-										onChange={(newValue) => setValue(newValue)}
-									/>
-									<Container className="flex justify-center">
-										<IconButton aria-label="add-log" onClick={handleAddLog}>
-											<CheckOutlinedIcon fontSize="large" />
-										</IconButton>
-										<IconButton
-											aria-label="add-log"
-											onClick={() => setShowAddLogArea(false)}
-										>
-											<CloseOutlinedIcon fontSize="large" />
-										</IconButton>
-									</Container>
+								<DatePicker
+									className="w-[170px]"
+									label="Select date"
+									value={value}
+									onChange={(newValue) => setValue(newValue)}
+								/>
+								<Container className="flex justify-center">
+									<IconButton aria-label="add-log" onClick={handleAddLog}>
+										<CheckOutlinedIcon fontSize="large" />
+									</IconButton>
+									<IconButton
+										aria-label="add-log"
+										onClick={() => setShowAddLogArea(false)}
+									>
+										<CloseOutlinedIcon fontSize="large" />
+									</IconButton>
 								</Container>
+							</Container>
+						)}
+						<Container className="flex justify-center">
+							{!showAddLogArea && (
+								<>
+									<Button
+										className="mr-5"
+										variant="outlined"
+										onClick={handleShowLogArea}
+									>
+										NEW LOG
+									</Button>
+									{selectedRow.length > 0 && (
+										<Button variant="outlined" onClick={handleLogDelete}>
+											DELETE LOG{" "}
+										</Button>
+									)}
+								</>
 							)}
 						</Container>
-						{!showAddLogArea && (
-							<>
-								<Button
-									className="mr-5"
-									variant="outlined"
-									onClick={handleShowLogArea}
-								>
-									NEW LOG
-								</Button>
-								{selectedRow.length > 0 && (
-									<Button variant="outlined" onClick={handleLogDelete}>
-										DELETE LOG{" "}
-									</Button>
-								)}
-							</>
-						)}
 					</Container>
 				</Container>
-			</Container>
+			</Box>
 		</LocalizationProvider>
 	);
 }
