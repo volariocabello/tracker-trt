@@ -1,10 +1,6 @@
-import Head from "next/head";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { runTransaction } from "firebase/firestore";
@@ -12,14 +8,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import {
 	Typography,
 	Container,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
 	TextField,
 	Button,
-	Paper,
-	Modal,
 	Box,
 	IconButton,
 } from "@mui/material";
@@ -28,14 +18,11 @@ import {
 	addDoc,
 	onSnapshot,
 	query,
-	updateDoc,
 	doc,
 	deleteDoc,
 	collection,
 } from "firebase/firestore";
 import { db } from "@/firebase";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const columns = [
 	{ field: "id", headerName: "ID", width: 70 },
@@ -165,7 +152,6 @@ export default function Home() {
 								columns={columns}
 								pageSize={5}
 								rowsPerPageOptions={[5]}
-								autoHeight
 								onRowClick={(rows) => {
 									setSelectedRow(rows.id);
 								}}
