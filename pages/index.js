@@ -152,92 +152,93 @@ export default function Home() {
 						})}
 					</Container>
 				</Container>
-				<Container
-					maxWidth="lg"
-					className="bg-white pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10"
-				>
-					<Typography className="text-xl pt-5 pb-5">Logger</Typography>
-					<div className="pb-5" style={{ height: 350, width: "100%" }}>
-						<DataGrid
-							className="flex justify-center items-center"
-							rows={logs}
-							columns={columns}
-							pageSize={1}
-							rowsPerPageOptions={[1]}
-							onRowClick={(rows) => {
-								setSelectedRow(rows.id);
-							}}
-							initialState={{
-								pagination: { paginationModel: { pageSize: 5 } },
-							}}
-						/>
-					</div>
-					{showAddLogArea && (
-						<Container className="inputsWrapper flex justify-between flex-wrap">
-							<TextField
-								className="w-[150px]"
-								label="Compound"
-								variant="outlined"
-								type="text"
-								onChange={(e) => setCompound(e.target.value)}
+				<Container>
+					<Container className="bg-white pb-5 flex justify-center flex-col items-center shadow-md rounded-xl ml-10">
+						<Typography className="text-xl pt-5 pb-5">Logger</Typography>
+						<div className="pb-5" style={{ height: 350, width: "100%" }}>
+							<DataGrid
+								className="flex justify-center items-center"
+								rows={logs}
+								columns={columns}
+								pageSize={1}
+								rowsPerPageOptions={[1]}
+								onRowClick={(rows) => {
+									setSelectedRow(rows.id);
+								}}
+								initialState={{
+									pagination: { paginationModel: { pageSize: 5 } },
+								}}
 							/>
-							<TextField
-								className="w-[150px]"
-								label="Ester"
-								variant="outlined"
-								type="text"
-								onChange={(e) => setEster(e.target.value)}
-							/>
-
-							<TextField
-								className="w-[120px]"
-								label="Dosage (mg)"
-								variant="outlined"
-								type="number"
-								onChange={(e) => setDosageMg(e.target.value)}
-							/>
-							<TextField
-								className="w-[120px]"
-								label="Dosage (ml)"
-								variant="outlined"
-								type="number"
-								onChange={(e) => setDosageMl(e.target.value)}
-							/>
-							<TextField
-								className="w-[150px]"
-								label="Brand"
-								variant="outlined"
-								type="text"
-								onChange={(e) => setBrand(e.target.value)}
-							/>
-							<TextField
-								className="w-[150px]"
-								label="Area"
-								variant="outlined"
-								type="text"
-								onChange={(e) => setArea(e.target.value)}
-							/>
-
-							<DatePicker
-								className="w-[170px]"
-								label="Select date"
-								value={value}
-								onChange={(newValue) => setValue(newValue)}
-							/>
-							<Container className="flex justify-center">
-								<IconButton aria-label="add-log" onClick={handleAddLog}>
-									<CheckOutlinedIcon fontSize="large" />
-								</IconButton>
-								<IconButton
-									aria-label="add-log"
-									onClick={() => setShowAddLogArea(false)}
-								>
-									<CloseOutlinedIcon fontSize="large" />
-								</IconButton>
-							</Container>
-						</Container>
-					)}
+						</div>
+					</Container>
 					<Container className="flex justify-center">
+						<Container>
+							{showAddLogArea && (
+								<Container className="inputsWrapper flex justify-between flex-wrap">
+									<TextField
+										className="w-[150px]"
+										label="Compound"
+										variant="outlined"
+										type="text"
+										onChange={(e) => setCompound(e.target.value)}
+									/>
+									<TextField
+										className="w-[150px]"
+										label="Ester"
+										variant="outlined"
+										type="text"
+										onChange={(e) => setEster(e.target.value)}
+									/>
+
+									<TextField
+										className="w-[120px]"
+										label="Dosage (mg)"
+										variant="outlined"
+										type="number"
+										onChange={(e) => setDosageMg(e.target.value)}
+									/>
+									<TextField
+										className="w-[120px]"
+										label="Dosage (ml)"
+										variant="outlined"
+										type="number"
+										onChange={(e) => setDosageMl(e.target.value)}
+									/>
+									<TextField
+										className="w-[150px]"
+										label="Brand"
+										variant="outlined"
+										type="text"
+										onChange={(e) => setBrand(e.target.value)}
+									/>
+									<TextField
+										className="w-[150px]"
+										label="Area"
+										variant="outlined"
+										type="text"
+										onChange={(e) => setArea(e.target.value)}
+									/>
+
+									<DatePicker
+										className="w-[170px]"
+										label="Select date"
+										value={value}
+										onChange={(newValue) => setValue(newValue)}
+									/>
+									<Container className="flex justify-center">
+										<IconButton aria-label="add-log" onClick={handleAddLog}>
+											<CheckOutlinedIcon fontSize="large" />
+										</IconButton>
+										<IconButton
+											aria-label="add-log"
+											onClick={() => setShowAddLogArea(false)}
+										>
+											<CloseOutlinedIcon fontSize="large" />
+										</IconButton>
+									</Container>
+								</Container>
+							)}
+						</Container>
 						{!showAddLogArea && (
 							<>
 								<Button
